@@ -1,0 +1,14 @@
+# object files
+*.o
+
+# text files
+*.txt
+
+# bin files
+*.bin
+
+# program
+program
+
+# make files
+Makefile
