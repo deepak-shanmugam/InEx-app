@@ -33,19 +33,21 @@ int getInput(const List **session, int isExpense) {
 
     //get amount:
     printf("Enter amount: ");
-    if(getCharInput(current.amount, sizeof(current.amount),ACTIVE) == INVALID) {
+    if(getCharInput(current.amount, sizeof(current.amount)-1,ACTIVE) == INVALID) {
         printf("\n\tError: size overflow or Failed to read Input\n");
         return INVALID;
     }
-    for(int i = strlen(current.amount)-1; i >= 0; i--) {
-        if(i > 0) {
+    for(int i = sizeof(current.amount)-1; i >= 0; i--) {
+        if(i >= 1 && i <= strlen(current.amount)) {
             current.amount[i] = current.amount[i-1];
-        } else {
+        } else if(i == 0) {
             if(isExpense == ACTIVE) {
                 current.amount[i] = '-';
             } else {
                 current.amount[i] = '+';
             }
+        } else {
+            current.amount[i] = '\0';
         }
     }
     if(isValidAmount(current.amount) != VALID) { 
