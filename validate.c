@@ -114,10 +114,10 @@ void cleanAmountFormat(char *myDate) { //use isValidAmount before calling this f
         printf("\n\tWarning: Error occured while cleaning Amount data: \n");
         return;
     }
-    int negative = INACTIVE, decial_point = INACTIVE, integral_part = 0, decimal_part = 0, automate = INACTIVE;
+    int sign = INACTIVE, decial_point = INACTIVE, integral_part = 0, decimal_part = 0, automate = INACTIVE;
     for(int i=0; i < strlen(myDate); i++) {
-        if(myDate[i] == '-') {
-            negative = ACTIVE;
+        if(myDate[i] == '-' || myDate[i] == '+') {
+            sign = ACTIVE;
         } else if(myDate[i] == '.') {
             decial_point = ACTIVE;
         } else {
@@ -128,7 +128,7 @@ void cleanAmountFormat(char *myDate) { //use isValidAmount before calling this f
             }
         }
     }
-    integral_part += negative;
+    integral_part += sign;
     if(myDate[integral_part] != '.') {
         myDate[integral_part] = '.';
         automate = ACTIVE;
