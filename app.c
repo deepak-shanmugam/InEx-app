@@ -14,7 +14,7 @@ void pauseBeforeShowingMenu();
 
 int getInput(const List **session, int isExpense) {
     if(session == NULL) {
-        printf("\nUnable to perform input operation: try again\n");
+        printf("\n\tMessage: Unable to perform input operation: try again\n");
         return INVALID;
     }
 
@@ -77,7 +77,7 @@ int getInput(const List **session, int isExpense) {
 
 int showSession(const List **session) {
     if(session == NULL) {
-        printf("Unable to show current session: try again\n");
+        printf("\n\tMessage: Unable to show current session: try again\n");
         return INVALID;
     } 
     if(*session == NULL) {
@@ -94,14 +94,14 @@ int showSession(const List **session) {
 
 int dropSession(const List **session) {
     if(session == NULL) {
-        printf("\nUnable to drop session: try again\n");
+        printf("\n\tMessage: Unable to drop session: try again\n");
         return INVALID;
     } 
     if(*session == NULL) {
         printf("\n\t- No records in the session to drop\n");
         return VALID;
     }
-    printf("Trying to drop current session...\n");
+    printf("\n\tTrying to drop current session...\n");
     if(dropRecordList(session) == INVALID) {
         printf("\n\tError: Failed to drop session. Please try again\n");
         return INVALID;
@@ -112,14 +112,14 @@ int dropSession(const List **session) {
 
 int saveCurrentSession(const List **currentSession) {
     if(currentSession == NULL) {
-        printf("\nUnable to save session. Try again\n");
+        printf("\n\tMessage: Unable to save session. Try again\n");
         return INVALID;
     }
     if(*currentSession == NULL) {
         printf("\n\t- No records in the current session to save\n");
         return VALID;
     }
-    printf("Trying to save current session\n");
+    printf("\n\tTrying to save current session\n");
     if (saveSession(currentSession) == INVALID) {
         printf("\n\tError: Failed to save session\n");
         return INVALID;
@@ -156,6 +156,6 @@ void printMenu() {
 
 void pauseBeforeShowingMenu() {
     char buffer[10];
-    printf("\npress 'Enter' to go back to Menu: ");
+    printf("\n\t~ press 'Enter' to go back to Menu: ");
     getCharInput(buffer,sizeof(buffer),INACTIVE);
 }

@@ -150,7 +150,7 @@ void cleanStringFormat(char *myString) {
 
 int getCharInput(char *str, int length, int isLengthConstraint) { 
     if(str == NULL || length <= 1) {
-        printf("\n\tWarning: Error getting input: \n");
+        printf("\n\tWarning: Error occured while getting input: \n");
         return INVALID;
     }
     int count = 0;

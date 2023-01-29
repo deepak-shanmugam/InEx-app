@@ -88,7 +88,7 @@ int showOutputData() {
         return INVALID;
     }
     char buffer[200];
-    printf("Your Income/Expense Data:\n\n");
+    printf("/nYour Income-Expense Data:\n\n");
     printf("%6s  | %10s  | %13s  | %30s  | %s\n","Count","Date","Amount","To / From","Comment");
     printf("%6s    %10s    %13s    %30s    %s\n","-----","----","------","---------","-------");
     for(int count = 1; fgets(buffer,sizeof(buffer),fp) != NULL; count++) {

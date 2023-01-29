@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
                         }
                         if(buffer[0] == 'y' || buffer[0] == 'Y') {
                             if(saveCurrentSession(&currentSession) == INVALID) {
-                                printf("operation failed: \n");
+                                printf("\n\tError: operation failed: \n");
                             }
                             break;
                         } else if (buffer[0] == 'N' || buffer[0] == 'n') {
@@ -44,31 +44,31 @@ int main(int argc, char **argv) {
                 break;
             case 1:
                 if(getInput(&currentSession, INACTIVE) == INVALID) {
-                    printf("operation failed: \n");
+                    printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 2:
                 if(showSession(&currentSession) == INVALID) {
-                    printf("operation failed: \n");
+                    printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 3:
                 if(dropSession(&currentSession) == INVALID) {
-                    printf("operation failed: \n");
+                    printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 4:
                 if(saveCurrentSession(&currentSession) == INVALID) {
-                    printf("operation failed: \n");
+                    printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 5:
                 if(openOutputData() == INVALID) {
-                    printf("operation failed: \n");
+                    printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;

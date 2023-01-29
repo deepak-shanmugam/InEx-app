@@ -37,6 +37,7 @@ int showRecordList(List **myList) {
     }
     int count=1;
     List *node = (*myList);
+    printf("\n");
     printf("%6s  | %10s  | %13s  | %30s  | %s\n","Count","Date","Amount","To / From","Comment");
     printf("%6s    %10s    %13s    %30s    %s\n","-----","----","------","---------","-------");
     while(node != NULL) {
@@ -67,7 +68,7 @@ int dropRecordList(const List **myList) {
 }
 
 void printDate(char *s) {
-    if(s == NULL) {
+    if(s == NULL || strlen(s) != 8) {
         printf("**Error** \n");
         return;
     }
