@@ -18,3 +18,6 @@ More features will be added in the upcoming days.
 Feedback and Corrections are welcome.
 
 email (if needed): deepdeepdeepak@outlook.com
+
+# License
+GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007
