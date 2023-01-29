@@ -4,7 +4,7 @@
 #include<string.h>
 #include"dataDefinition.h"
 
-static const char *filePath = "./test1.txt";
+static const char *filePath = "./userData.txt";
 
 static int saveRecord(FILE *fp, Record currentRecord);
 int saveSession(const List **session);
