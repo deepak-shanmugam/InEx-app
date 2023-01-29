@@ -58,7 +58,7 @@ int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min:
     if(myAmount == NULL || strlen(myAmount) > 13 || strlen(myAmount) == 0) {
         return INVALID;
     }
-    int decimalPoint = INACTIVE;
+    int decimalPoint = INACTIVE, sign = INACTIVE;
     for(int i=0; i < strlen(myAmount); i++) {
         if(myAmount[i] < '0' || myAmount[i] > '9') {
             if(myAmount[i] == '.') {
@@ -66,23 +66,29 @@ int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min:
                 if(decimalPoint == ACTIVE) {
                     return INVALID;
                 } 
-                //return invalid, if '.' comes in beginning
-                else if(i == 0) {
+                //return invalid, if '.' comes in beginning (or) exactly after the sign
+                else if(i == (0 + sign)) {
                     return INVALID;
                 } 
                 //return invalid, if '.' comes > 9th position
-                else if(i > 9) {
+                else if(i > (9 + sign)) {
                     return INVALID;
                 }
                 //active the decimal_point variable (if not already comes)
                 decimalPoint = ACTIVE;
+            } else if(myAmount[i] == '+' || myAmount[i] == '-') {
+                //return invalid, if '+' or '-' comes in other than index 0
+                if(i != 0) {
+                    return INVALID;
+                }
+                sign = ACTIVE;
             } else {
                 //return invalid, if any other special characters except '.' or '-' 
                 return INVALID;
             }
         } 
         //return invalid, if the length of integeral part is > 9
-        if(i > 8 && decimalPoint == INACTIVE) {
+        if(i > (8 + sign) && decimalPoint == INACTIVE) {
             return INVALID;
         }
     }
@@ -149,7 +155,7 @@ void cleanStringFormat(char *myString) {
 }
 
 int getCharInput(char *str, int length, int isLengthConstraint) { 
-    if(str == NULL || length <= 1) {
+    if(str == NULL || length <= 1 || (isLengthConstraint != ACTIVE && isLengthConstraint != INACTIVE)) {
         printf("\n\tWarning: Error occured while getting input: \n");
         return INVALID;
     }

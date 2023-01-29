@@ -1,6 +1,7 @@
 //session.c
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include"dataDefinition.h"
 
 int addRecordList(Record myRec, const List **myList);
@@ -44,8 +45,6 @@ int showRecordList(List **myList) {
         printf("%6d  | ",count);
         printDate(node->rec.date);
         printf("  | %13s  | %30s  | %s\n",node->rec.amount,node->rec.to,node->rec.comment);
-        //printf("Record %d:\n",count);
-        //printf("date: %s, amount: %s, to: %s, comment: %s\n",node->rec.date,node->rec.amount,node->rec.to,node->rec.comment);
         node = node->next;
         count++;
     }

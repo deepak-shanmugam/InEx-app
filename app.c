@@ -13,7 +13,7 @@ void printMenu();
 void pauseBeforeShowingMenu();
 
 int getInput(const List **session, int isExpense) {
-    if(session == NULL) {
+    if(session == NULL || (isExpense != ACTIVE && isExpense != INACTIVE)) {
         printf("\n\tMessage: Unable to perform input operation: try again\n");
         return INVALID;
     }
@@ -36,6 +36,17 @@ int getInput(const List **session, int isExpense) {
     if(getCharInput(current.amount, sizeof(current.amount),ACTIVE) == INVALID) {
         printf("\n\tError: size overflow or Failed to read Input\n");
         return INVALID;
+    }
+    for(int i = strlen(current.amount)-1; i >= 0; i--) {
+        if(i > 0) {
+            current.amount[i] = current.amount[i-1];
+        } else {
+            if(isExpense == ACTIVE) {
+                current.amount[i] = '-';
+            } else {
+                current.amount[i] = '+';
+            }
+        }
     }
     if(isValidAmount(current.amount) != VALID) { 
         printf("\n\t- Validation failed: Invalid amount\n");
@@ -84,7 +95,7 @@ int showSession(const List **session) {
         printf("\n\t- No records in the session to show\n");
         return VALID;
     }
-    printf("\nShowing current session:\n");
+    printf("\n\tShowing current session:\n");
     if (showRecordList(session) == INVALID) {
         printf("\n\tError: Failed to show current session...\n");
         return INVALID;
@@ -145,11 +156,12 @@ void printMenu() {
     printf("\n*************************--MENU--***************************\n");
     printf("Please Enter\n");
     printf("\t0 - To exit\n");
-    printf("\t1 - To create an Income or Expense record\n");
-    printf("\t2 - To show the current session of unsaved records\n");
-    printf("\t3 - To drop/delete current session\n");
-    printf("\t4 - To save current session of records\n");
-    printf("\t5 - To open or show your entire data\n");
+    printf("\t1 - To create an Income record\n");
+    printf("\t2 - To create an Expense record\n");
+    printf("\t3 - To show the current session of unsaved records\n");
+    printf("\t4 - To drop/delete current session\n");
+    printf("\t5 - To save current session of records\n");
+    printf("\t6 - To open or show your entire data\n");
     printf("\npress ctrl+c for emergency exit (Note: you might lose data)\n");
     printf("*************************--END--*****************************\n");
 }

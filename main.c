@@ -42,31 +42,31 @@ int main(int argc, char **argv) {
                 exit = ACTIVE;
                 printf("\nApplication is Exiting...\n");
                 break;
-            case 1:
-                if(getInput(&currentSession, INACTIVE) == INVALID) {
-                    printf("\toperation failed: \n");
-                }
-                pauseBeforeShowingMenu();
-                break;
-            case 2:
-                if(showSession(&currentSession) == INVALID) {
+            case 1: case 2:
+                if(getInput(&currentSession, choice-1) == INVALID) {
                     printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 3:
-                if(dropSession(&currentSession) == INVALID) {
+                if(showSession(&currentSession) == INVALID) {
                     printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 4:
-                if(saveCurrentSession(&currentSession) == INVALID) {
+                if(dropSession(&currentSession) == INVALID) {
                     printf("\toperation failed: \n");
                 }
                 pauseBeforeShowingMenu();
                 break;
             case 5:
+                if(saveCurrentSession(&currentSession) == INVALID) {
+                    printf("\toperation failed: \n");
+                }
+                pauseBeforeShowingMenu();
+                break;
+            case 6:
                 if(openOutputData() == INVALID) {
                     printf("\toperation failed: \n");
                 }
