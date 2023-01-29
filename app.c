@@ -4,7 +4,7 @@
 #include"dataDefinition.h"
 #include"external.h"
 
-int getInput(const List **session);
+int getInput(const List **session, int isExpense);
 int showSession(const List **session);
 int dropSession(const List **session);
 int saveCurrentSession(const List **currentSession);
@@ -12,7 +12,7 @@ int openOutputData();
 void printMenu();
 void pauseBeforeShowingMenu();
 
-int getInput(const List **session) {
+int getInput(const List **session, int isExpense) {
     if(session == NULL) {
         printf("\nUnable to perform input operation: try again\n");
         return INVALID;

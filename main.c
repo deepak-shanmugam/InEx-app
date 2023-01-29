@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
                 printf("\nApplication is Exiting...\n");
                 break;
             case 1:
-                if(getInput(&currentSession) == INVALID) {
+                if(getInput(&currentSession, INACTIVE) == INVALID) {
                     printf("operation failed: \n");
                 }
                 pauseBeforeShowingMenu();

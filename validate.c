@@ -9,7 +9,7 @@ int isValidTo(const char *myTo);
 int isValidComment(const char *myComment);
 void cleanAmountFormat(char *myDate);
 void cleanStringFormat(char *myString);
-int getCharInput(char *str, int length, int lengthConstraint);
+int getCharInput(char *str, int length, int isLengthConstraint);
 
 int isValidDate(const char *myDate) {
     if(myDate == NULL || strlen(myDate) != 8) {
@@ -53,31 +53,25 @@ int isValidDate(const char *myDate) {
     }
 }
 
-int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: -999999999.99
+int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: 0.00000 (or) just 0
     //return invalid, if the length of the string is > 13 or == 0
     if(myAmount == NULL || strlen(myAmount) > 13 || strlen(myAmount) == 0) {
         return INVALID;
     }
-    int decimalPoint = INACTIVE, negative = INACTIVE;
+    int decimalPoint = INACTIVE;
     for(int i=0; i < strlen(myAmount); i++) {
         if(myAmount[i] < '0' || myAmount[i] > '9') {
-            if(myAmount[i] == '-') {
-                //return invalid, if '-' doesn't comes in the beginning
-                if(i != 0) {
-                    return INVALID;
-                }
-                negative = ACTIVE;
-            } else if(myAmount[i] == '.') {
+            if(myAmount[i] == '.') {
                 //return Invalid, If decimal_point(.) already comes
                 if(decimalPoint == ACTIVE) {
                     return INVALID;
                 } 
-                //return invalid, if '.' comes in beginning or after '-'
-                else if(i == 0 || (i == 1 && negative == ACTIVE)) {
+                //return invalid, if '.' comes in beginning
+                else if(i == 0) {
                     return INVALID;
                 } 
-                //return invalid, if '.' comes > 9th position or  > 10th position (if '-' comes)
-                else if(i > (negative+9)) {
+                //return invalid, if '.' comes > 9th position
+                else if(i > 9) {
                     return INVALID;
                 }
                 //active the decimal_point variable (if not already comes)
@@ -88,13 +82,9 @@ int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min:
             }
         } 
         //return invalid, if the length of integeral part is > 9
-        if(i >= (negative+9) && decimalPoint == INACTIVE) {
+        if(i > 8 && decimalPoint == INACTIVE) {
             return INVALID;
         }
-    }
-    //return invalid, if the input string is just "-"
-    if(strlen(myAmount)==1 && negative == ACTIVE) {
-        return INVALID;
     }
     return VALID;
 }
@@ -158,7 +148,7 @@ void cleanStringFormat(char *myString) {
     myString[loop+1] = '\0';
 }
 
-int getCharInput(char *str, int length, int lengthConstraint) { 
+int getCharInput(char *str, int length, int isLengthConstraint) { 
     if(str == NULL || length <= 1) {
         printf("\n\tWarning: Error getting input: \n");
         return INVALID;
@@ -181,7 +171,7 @@ int getCharInput(char *str, int length, int lengthConstraint) {
         }
     }
     //Return INVALID if the input have extra length except '\n' (only if the length constraint is active)
-    if(lengthConstraint == ACTIVE && count > 1) {
+    if(isLengthConstraint == ACTIVE && count > 1) {
         return INVALID;
     }
     return VALID;
