@@ -56,12 +56,7 @@ static int saveRecord(FILE *fp, Record currentRecord) {
         }
     }
     flag = 0;
-    int positive = INACTIVE;
-    for(int i = 0; i < sizeof(currentRecord.amount)-(1+positive); i++) {
-        if(i==0 && currentRecord.amount[i] != '-') { //remove this positive code later after changes
-            positive = ACTIVE;
-            fputc('+',fp);
-        }
+    for(int i = 0; i < sizeof(currentRecord.amount)-1; i++) {
         int ch = currentRecord.amount[i];
         if(ch == '\0') flag++;
         if(flag != 0) {
