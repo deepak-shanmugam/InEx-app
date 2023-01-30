@@ -12,8 +12,8 @@ typedef struct data {
     char comment[101];
 } Record;
 
-typedef struct session {
+typedef struct recordList {
     Record rec;
-    struct session *next;
+    struct recordList *next;
 } List;
 
