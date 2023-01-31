@@ -3,8 +3,8 @@ CFLAGS=-c -Wall
 
 all: program
 
-program: main.o app.o session.o validate.o storage.o dataProcessing.o
-	$(CC) main.o app.o session.o validate.o storage.o dataProcessing.o -o program
+program: main.o app.o session.o record.o storage.o dataProcessing.o
+	$(CC) main.o app.o session.o record.o storage.o dataProcessing.o -o program
 
 main.o: main.c
 	$(CC) $(CFLAGS) main.c
@@ -15,8 +15,8 @@ app.o: app.c
 session.o: session.c
 	$(CC) $(CFLAGS) session.c
 
-validate.o: validate.c
-	$(CC) $(CFLAGS) validate.c
+record.o: record.c
+	$(CC) $(CFLAGS) record.c
 
 storage.o: storage.c
 	$(CC) $(CFLAGS) storage.c

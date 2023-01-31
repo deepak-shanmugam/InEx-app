@@ -5,7 +5,7 @@ extern int addRecordList(Record myRec, const List **myList);
 extern int showRecordList(const List **myList);
 extern int dropRecordList(const List **myList);
 
-/*functions in validate.c*/
+/*functions in record.c*/
 extern int getRecord(Record *current, int isExpense);
 
 /*functions in storage.c*/
