@@ -58,8 +58,22 @@ int main(int argc, char **argv) {
                 pauseBeforeShowingMenu();
                 break;
             case 4:
-                if(dropSession(&currentSession) == INVALID) {
-                    printf("\toperation failed: \n");
+                printf("\n\t- you have choosed to drop the session. \n");
+                printf("\t(Note: All records in the current session will be deleted)\n\n");
+                while(1) {
+                    printf("\tDo you want to continue (Y/n): ");
+                    if(getCharInput(buffer, 2, INACTIVE) == INVALID) {
+                        printf("\t- Error: Problem saving session...\n");
+                        break;
+                    }
+                    if(buffer[0] == 'y' || buffer[0] == 'Y') {
+                        if(dropSession(&currentSession) == INVALID) {
+                            printf("\toperation failed: \n");
+                        }
+                        break;
+                    } else if (buffer[0] == 'N' || buffer[0] == 'n') {
+                        break;
+                    }
                 }
                 pauseBeforeShowingMenu();
                 break;

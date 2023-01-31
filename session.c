@@ -68,7 +68,7 @@ int dropRecordList(const List **myList) {
 
 void printDate(char *s) {
     if(s == NULL || strlen(s) != 8) {
-        printf("**Error** \n");
+        printf("**Error** ");
         return;
     }
     for(int i = 0; i < 8; i++) {
