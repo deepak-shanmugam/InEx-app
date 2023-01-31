@@ -59,7 +59,12 @@ int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min:
         return INVALID;
     }
     int decimalPoint = INACTIVE, sign = INACTIVE;
+    int decimalPoint_position = 0;
     for(int i=0; i < strlen(myAmount); i++) {
+        if(decimalPoint == ACTIVE && i > (decimalPoint_position+2)) {
+            //return Invalid, If more than 2 decimal point is active
+            return INVALID;
+        }
         if(myAmount[i] < '0' || myAmount[i] > '9') {
             if(myAmount[i] == '.') {
                 //return Invalid, If decimal_point(.) already comes
@@ -75,6 +80,7 @@ int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min:
                     return INVALID;
                 }
                 //active the decimal_point variable (if not already comes)
+                decimalPoint_position = i;
                 decimalPoint = ACTIVE;
             } else if(myAmount[i] == '+' || myAmount[i] == '-') {
                 //return invalid, if '+' or '-' comes in other than index 0
