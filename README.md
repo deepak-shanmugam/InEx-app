@@ -9,7 +9,7 @@ Linux
 ## Build
 Using GCC:
 
-gcc -o program main.c app.c session.c validate.c storage.c
+gcc -o program main.c app.c session.c validate.c storage.c dataProcessing.c
 
 ## Run
 ./program
