@@ -116,7 +116,7 @@ static int isValidDate(const char *myDate) {
     }
 }
 
-static int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: 0.00000 (or) just 0
+static int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: 0.00 (or) just 0
     //return invalid, if the length of the string is > 13 or == 0
     if(myAmount == NULL || strlen(myAmount) > 13 || strlen(myAmount) == 0) {
         return INVALID;
@@ -125,7 +125,7 @@ static int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.9
     int decimalPoint_position = 0;
     for(int i=0; i < strlen(myAmount); i++) {
         if(decimalPoint == ACTIVE && i > (decimalPoint_position+2)) {
-            //return Invalid, If more than 2 decimal point is active
+            //return Invalid, If more than 2 decimal values is present
             return INVALID;
         }
         if(myAmount[i] < '0' || myAmount[i] > '9') {
