@@ -3,6 +3,9 @@
 #include"dataDefinition.h"
 #include"api.h"
 
+static void printMenu();
+static void pauseBeforeShowingMenu();
+
 int main(int argc, char **argv) {
     List *currentSession = NULL;
     int exit = INACTIVE;
@@ -78,4 +81,24 @@ int main(int argc, char **argv) {
         }
     }
     return 0;
+}
+
+static void printMenu() {
+    printf("\n*************************--MENU--***************************\n");
+    printf("Please Enter\n");
+    printf("\t0 - To exit\n");
+    printf("\t1 - To create an Income record\n");
+    printf("\t2 - To create an Expense record\n");
+    printf("\t3 - To show the current session of unsaved records\n");
+    printf("\t4 - To drop/delete current session\n");
+    printf("\t5 - To save current session of records\n");
+    printf("\t6 - To open or show your entire data\n");
+    printf("\npress ctrl+c for emergency exit (Note: you might lose data)\n");
+    printf("*************************--END--*****************************\n");
+}
+
+static void pauseBeforeShowingMenu() {
+    char buffer[10];
+    printf("\n\t~ press 'Enter' to go back to Menu: ");
+    getCharInput(buffer,sizeof(buffer),INACTIVE);
 }
