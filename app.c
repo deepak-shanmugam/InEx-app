@@ -17,72 +17,17 @@ int getInput(const List **session, int isExpense) {
     }
 
     Record current;
-
-    //get date:
-    printf("\nEnter date in format (yyyymmdd): ");
-    if(getCharInput(current.date, sizeof(current.date),ACTIVE) == INVALID) {
-        printf("\n\tError: size overflow or Failed to read Input\n");
+    if(getRecord(&current, isExpense) == INVALID) {
+        //printf("\n\tMessage: Please give valid data\n");
         return INVALID;
     }
-    if(isValidDate(current.date) != VALID) { 
-        printf("\n\t- Validation failed: Invalid date\n");
-        return INVALID;
-    }
-
-    //get amount:
-    printf("Enter amount: ");
-    if(getCharInput(current.amount, sizeof(current.amount)-1,ACTIVE) == INVALID) {
-        printf("\n\tError: size overflow or Failed to read Input\n");
-        return INVALID;
-    }
-    for(int i = sizeof(current.amount)-1; i >= 0; i--) {
-        if(i >= 1 && i <= strlen(current.amount)) {
-            current.amount[i] = current.amount[i-1];
-        } else if(i == 0) {
-            if(isExpense == ACTIVE) {
-                current.amount[i] = '-';
-            } else {
-                current.amount[i] = '+';
-            }
-        } else {
-            current.amount[i] = '\0';
-        }
-    }
-    if(isValidAmount(current.amount) != VALID) { 
-        printf("\n\t- Validation failed: Invalid amount\n");
-        return INVALID;
-    }
-    cleanAmountFormat(current.amount);
-
-    //get To/from:
-    printf("Enter to/from: ");
-    if(getCharInput(current.to, sizeof(current.to),INACTIVE) == INVALID) {
-        printf("\n\tError: Failed to read Input\n");
-        return INVALID;
-    }
-    cleanStringFormat(current.to); //trim last spaces
-    if(isValidTo(current.to) != VALID) { 
-        printf("\n\t- Validation failed: Invalid To/From\n");
-        return INVALID;
-    }
-
-    //get comment:
-    printf("Enter comment: ");
-    if(getCharInput(current.comment, sizeof(current.comment),INACTIVE) == INVALID) {
-        printf("\n\tError: Failed to read Input\n");
-        return INVALID;
-    }
-    cleanStringFormat(current.to);//trim last spaces
-    if(isValidComment(current.comment) != VALID) { 
-        printf("\n\t- Validation failed: Invalid comment\n");
-        return INVALID;
-    }
-
     //add the record to the list
     if(addRecordList(current, session) == INVALID) {
         printf("\n\tError: Failed to add the record... please try again\n");
+        return INVALID;
     } 
     printf("\n\t- Successfully added the input record...\n");
+
     return VALID;
 }
 

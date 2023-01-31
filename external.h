@@ -6,15 +6,7 @@ extern int showRecordList(const List **myList);
 extern int dropRecordList(const List **myList);
 
 /*functions in validate.c*/
-extern int isValidDate(const char *myDate);
-extern int isValidAmount(const char *myAmount);
-extern int isValidTo(const char *myTo);
-extern int isValidComment(const char *myComment);
-
-/*fuctions in dataProcessing.c*/
-extern int getCharInput(char *str, int length, int lengthConstraint);
-extern void cleanAmountFormat(char *myDate);
-extern void cleanStringFormat(char *myString);
+extern int getRecord(Record *current, int isExpense);
 
 /*functions in storage.c*/
 extern int saveSession(const List **currentSession);

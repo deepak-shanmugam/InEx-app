@@ -3,12 +3,78 @@
 #include<string.h>
 #include"dataDefinition.h"
 
-int isValidDate(const char *myDate);
-int isValidAmount(const char *myAmount);
-int isValidTo(const char *myTo);
-int isValidComment(const char *myComment);
+/*fuctions in dataProcessing.c*/
+extern int getCharInput(char *str, int length, int lengthConstraint);
+extern void cleanAmountFormat(char *myDate);
+extern void cleanStringFormat(char *myString);
 
-int isValidDate(const char *myDate) {
+int getRecord(Record *myRec, int isExpense);
+static int isValidDate(const char *myDate);
+static int isValidAmount(const char *myAmount);
+static int isValidTo(const char *myTo);
+static int isValidComment(const char *myComment);
+static void addSignToAmount(char *amount, int size, int isExpense);
+
+int getRecord(Record *current, int isExpense){
+    if(current == NULL || (isExpense != ACTIVE && isExpense != INACTIVE)) {
+        printf("\n\tError: Something went wrong\n");
+        return INVALID;
+    }
+    
+    //get date:
+    printf("\nEnter date in format (yyyymmdd): ");
+    if(getCharInput(current->date, sizeof(current->date),ACTIVE) == INVALID) {
+        printf("\n\tError: size overflow or Failed to read Input\n");
+        return INVALID;
+    }
+    if(isValidDate(current->date) != VALID) { 
+        printf("\n\t- Validation failed: Invalid date\n");
+        return INVALID;
+    }
+
+    //get amount:
+    printf("Enter amount: ");
+    if(getCharInput(current->amount, sizeof(current->amount)-1,ACTIVE) == INVALID) {
+        printf("\n\tError: size overflow or Failed to read Input\n");
+        return INVALID;
+    }
+    //assigning signature to amount (+/-) to distinguish income and expense records
+    addSignToAmount(current->amount, sizeof(current->amount),isExpense);
+
+    if(isValidAmount(current->amount) != VALID) { 
+        printf("\n\t- Validation failed: Invalid amount\n");
+        return INVALID;
+    }
+    cleanAmountFormat(current->amount);
+
+    //get To/from:
+    printf("Enter to/from: ");
+    if(getCharInput(current->to, sizeof(current->to),INACTIVE) == INVALID) {
+        printf("\n\tError: Failed to read Input\n");
+        return INVALID;
+    }
+    cleanStringFormat(current->to); //trim last spaces
+    if(isValidTo(current->to) != VALID) { 
+        printf("\n\t- Validation failed: Invalid To/From\n");
+        return INVALID;
+    }
+
+    //get comment:
+    printf("Enter comment: ");
+    if(getCharInput(current->comment, sizeof(current->comment),INACTIVE) == INVALID) {
+        printf("\n\tError: Failed to read Input\n");
+        return INVALID;
+    }
+    cleanStringFormat(current->to);//trim last spaces
+    if(isValidComment(current->comment) != VALID) { 
+        printf("\n\t- Validation failed: Invalid comment\n");
+        return INVALID;
+    }
+
+    return VALID;
+}
+
+static int isValidDate(const char *myDate) {
     if(myDate == NULL || strlen(myDate) != 8) {
         return INVALID;
     }
@@ -50,7 +116,7 @@ int isValidDate(const char *myDate) {
     }
 }
 
-int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: 0.00000 (or) just 0
+static int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: 0.00000 (or) just 0
     //return invalid, if the length of the string is > 13 or == 0
     if(myAmount == NULL || strlen(myAmount) > 13 || strlen(myAmount) == 0) {
         return INVALID;
@@ -98,16 +164,32 @@ int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min:
     return VALID;
 }
 
-int isValidTo(const char *myTo) {
+static int isValidTo(const char *myTo) {
     if(myTo == NULL || strlen(myTo) > 30 || strlen(myTo) == 0) {
         return INVALID;
     }
     return VALID; 
 }
 
-int isValidComment(const char *myComment) {
+static int isValidComment(const char *myComment) {
     if(myComment == NULL || strlen(myComment) > 100) {
         return INVALID;
     }
     return VALID; 
+}
+
+static void addSignToAmount(char *amount, int size, int isExpense) {
+    for(int i = size - 1; i >= 0; i--) {
+        if(i >= 1 && i <= strlen(amount)) {
+            amount[i] = amount[i-1];
+        } else if(i == 0) {
+            if(isExpense == ACTIVE) {
+                amount[i] = '-';
+            } else {
+                amount[i] = '+';
+            }
+        } else {
+            amount[i] = '\0';
+        }
+    }
 }
