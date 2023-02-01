@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
                 if(currentSession != NULL) {
                     printf("\nCurrent session is not saved:\n");
                     while(1) {
-                        printf("\t- Do you want to save the session before exit? (Y/n): ");
+                        printf("\t- Do you want to save the session before exit? (Y/n/c): ");
                         if(getCharInput(buffer, 2, INACTIVE) == INVALID) {
                             printf("\t- Error: Problem saving session...\n");
                             break;
@@ -36,14 +36,19 @@ int main(int argc, char **argv) {
                             if(saveCurrentSession(&currentSession) == INVALID) {
                                 printf("\n\tError: operation failed: \n");
                             }
+                            exit = ACTIVE;
                             break;
                         } else if (buffer[0] == 'N' || buffer[0] == 'n') {
+                            exit = ACTIVE;
+                            break;
+                        } else if (buffer[0] == 'C' || buffer[0] == 'c') {
                             break;
                         }
                     }
                 }
-                exit = ACTIVE;
-                printf("\nApplication is Exiting...\n");
+                if(exit == ACTIVE) {
+                    printf("\nApplication is Exiting...\n");
+                }
                 break;
             case 1: case 2:
                 if(getInput(&currentSession, choice-1) == INVALID) {
