@@ -2,9 +2,7 @@
 First version of CLI based Income and Expense management app created using C
 
 ## Supported Operating System
-Linux
-
-(Note: Windows will be supported in next release)
+Linux, windows, unix
 
 ## Build
 Using GCC:
