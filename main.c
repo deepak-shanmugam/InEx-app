@@ -45,6 +45,8 @@ int main(int argc, char **argv) {
                             break;
                         }
                     }
+                } else {
+                    exit = ACTIVE;
                 }
                 if(exit == ACTIVE) {
                     printf("\nApplication is Exiting...\n");
