@@ -8,6 +8,7 @@ First version of CLI based Income and Expense management app created using C
 
 # Build
 > using gcc:
+
 ```
 gcc -o program main.c app.c session.c record.c storage.c dataProcessing.c
 ```
@@ -46,6 +47,7 @@ gcc -o program main.c app.c session.c record.c storage.c dataProcessing.c
 
 # Disclaimer
 > About this project
+
 This is my first complete c project. This program is tested in terms of functionality. However, It might have some minor issues (if any) and limitations in overall functionality. However, More features will be added in the upcoming days. It will be developed as an advanced CLI based Income and Expense management app in future.
 
 Feedback and Corrections are welcome. you can also report bugs in your convenient way.
