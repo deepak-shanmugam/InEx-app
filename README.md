@@ -12,6 +12,7 @@ First version of CLI based Income and Expense management app created using C
 ```
 gcc -o program main.c app.c session.c record.c storage.c dataProcessing.c
 ```
+**Note:** *Ignore the warning when executing above command*
 
 # Run
 ```
