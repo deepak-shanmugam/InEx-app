@@ -24,8 +24,10 @@ int main(int argc, char **argv) {
         }
         switch(choice) {
             case 0:
-                if(currentSession != NULL) {
-                    printf("\nCurrent session is not saved:\n");
+                if (currentSession == NULL) {
+                    exit = ACTIVE;
+                } else {
+                    printf("\n\tCurrent session is not saved:\n");
                     while(1) {
                         printf("\t- Do you want to save the session before exit? (Y/n/c): ");
                         if(getCharInput(buffer, 2, INACTIVE) == INVALID) {
@@ -35,21 +37,20 @@ int main(int argc, char **argv) {
                         if(buffer[0] == 'y' || buffer[0] == 'Y') {
                             if(saveCurrentSession(&currentSession) == INVALID) {
                                 printf("\n\tError: operation failed: \n");
-                            }
+                                printf("\tThis session is not saved\n");
+                            } 
                             exit = ACTIVE;
                             break;
                         } else if (buffer[0] == 'N' || buffer[0] == 'n') {
+                            printf("\n\tDiscarding the session without saving\n");
                             exit = ACTIVE;
                             break;
                         } else if (buffer[0] == 'C' || buffer[0] == 'c') {
                             break;
                         }
                     }
-                } else {
-                    exit = ACTIVE;
-                }
-                if(exit == ACTIVE) {
-                    printf("\nApplication is Exiting...\n");
+                } if(exit == ACTIVE) {
+                    printf("\nApplication is trying to exit...\n");
                 }
                 break;
             case 1: case 2:
@@ -65,21 +66,25 @@ int main(int argc, char **argv) {
                 pauseBeforeShowingMenu();
                 break;
             case 4:
-                printf("\n\t- you have choosed to drop the session. \n");
-                printf("\t(Note: All records in the current session will be deleted)\n\n");
-                while(1) {
-                    printf("\tDo you want to continue (Y/n): ");
-                    if(getCharInput(buffer, 2, INACTIVE) == INVALID) {
-                        printf("\t- Error: Problem saving session...\n");
-                        break;
-                    }
-                    if(buffer[0] == 'y' || buffer[0] == 'Y') {
-                        if(dropSession(&currentSession) == INVALID) {
-                            printf("\toperation failed: \n");
+                if(currentSession == NULL) {
+                    printf("\n\t- No records in the session to drop\n");
+                } else {
+                    printf("\n\t- you have choosed to drop the session. \n");
+                    printf("\t(Note: All records in the current session will be deleted)\n\n");
+                    while(1) {
+                        printf("\tDo you want to continue (Y/n): ");
+                        if(getCharInput(buffer, 2, INACTIVE) == INVALID) {
+                            printf("\t- Error: Problem saving session...\n");
+                            break;
                         }
-                        break;
-                    } else if (buffer[0] == 'N' || buffer[0] == 'n') {
-                        break;
+                        if(buffer[0] == 'y' || buffer[0] == 'Y') {
+                            if(dropSession(&currentSession) == INVALID) {
+                                printf("\toperation failed: \n");
+                            }
+                            break;
+                        } else if (buffer[0] == 'N' || buffer[0] == 'n') {
+                            break;
+                        }
                     }
                 }
                 pauseBeforeShowingMenu();
@@ -101,6 +106,7 @@ int main(int argc, char **argv) {
                 pauseBeforeShowingMenu();
         }
     }
+    printf("Exit Successful\n");
     return 0;
 }
 
