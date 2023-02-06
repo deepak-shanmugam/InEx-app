@@ -5,17 +5,23 @@
 
 static void printMenu();
 static void pauseBeforeShowingMenu();
+static int isProgramExit();
+static void endProgram(List *currentSession);
 
 int main(int argc, char **argv) {
     List *currentSession = NULL;
     int exit = INACTIVE;
     while (exit == INACTIVE) {
-        printMenu();
         char buffer[10];
         int choice;
+        printMenu();
         printf("\nEnter your choice: ");
-        while(getCharInput(buffer, 2, ACTIVE) == INVALID) {
+        while(getCharInput(buffer, 2, ACTIVE) == INVALID && isProgramExit() == INACTIVE) {
             printf("Please enter valid choice: ");
+        }
+        if(isProgramExit() == ACTIVE) {
+            endProgram(currentSession);
+            break;
         }
         if(sscanf(buffer,"%d",&choice) != 1) {
             printf("\n\tError Message: INVALID Input...\n");
@@ -50,14 +56,19 @@ int main(int argc, char **argv) {
                         }
                     }
                 } if(exit == ACTIVE) {
-                    printf("\nApplication is trying to exit...\n");
+                    printf("\n\t~ Application is trying to exit...\n");
                 }
                 break;
             case 1: case 2:
                 if(getInput(&currentSession, choice-1) == INVALID) {
                     printf("\toperation failed: \n");
                 }
-                pauseBeforeShowingMenu();
+                if(isProgramExit() == ACTIVE) {
+                    endProgram(currentSession);
+                    exit = ACTIVE;
+                } else {
+                    pauseBeforeShowingMenu();
+                }
                 break;
             case 3:
                 if(showSession(&currentSession) == INVALID) {
@@ -106,7 +117,7 @@ int main(int argc, char **argv) {
                 pauseBeforeShowingMenu();
         }
     }
-    printf("Exit Successful\n");
+    printf("\nExit Successful\n");
     return 0;
 }
 
@@ -128,4 +139,20 @@ static void pauseBeforeShowingMenu() {
     char buffer[10];
     printf("\n\t~ press 'Enter' to go back to Menu: ");
     getCharInput(buffer,sizeof(buffer),INACTIVE);
+}
+
+static int isProgramExit() {
+    if(feof(stdin) || ferror(stdin)) {
+        return ACTIVE;
+    }
+    return INACTIVE;
+}
+
+static void endProgram(List *session) {
+    printf("\n\t~ Oops...! Something went wrong or EOF reached.\n");
+    if(session != NULL) {
+        printf("\n\t- The data in your current session will be lose\n");
+        //Create recovery of session in the future
+    }
+    printf("\n\t- Application is trying to exit\n");
 }
