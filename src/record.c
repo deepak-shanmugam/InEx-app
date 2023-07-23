@@ -22,7 +22,7 @@ int getRecord(Record *current, int isExpense){
     }
     
     //get date:
-    printf("\nEnter date in format (yyyymmdd): ");
+    printf("\n*Enter date in format (yyyymmdd): ");
     if(getCharInput(current->date, sizeof(current->date),ACTIVE) == INVALID) {
         printf("\n\tError: size overflow or Failed to read Input\n");
         return INVALID;
@@ -33,14 +33,16 @@ int getRecord(Record *current, int isExpense){
     }
 
     //get amount:
-    printf("Enter amount: ");
+    printf("*Enter amount: ");
     if(getCharInput(current->amount, sizeof(current->amount)-1,ACTIVE) == INVALID) {
         printf("\n\tError: size overflow or Failed to read Input\n");
         return INVALID;
     }
+    cleanStringFormat(current->amount);
+    
     //assigning signature to amount (+/-) to distinguish income and expense records
     addSignToAmount(current->amount, sizeof(current->amount),isExpense);
-
+    
     if(isValidAmount(current->amount) != VALID) { 
         printf("\n\t- Validation failed: Invalid amount\n");
         return INVALID;
@@ -48,7 +50,7 @@ int getRecord(Record *current, int isExpense){
     cleanAmountFormat(current->amount);
 
     //get To/from:
-    printf("Enter to/from: ");
+    printf("*Enter to/from: ");
     if(getCharInput(current->to, sizeof(current->to),INACTIVE) == INVALID) {
         printf("\n\tError: Failed to read Input\n");
         return INVALID;
@@ -65,7 +67,7 @@ int getRecord(Record *current, int isExpense){
         printf("\n\tError: Failed to read Input\n");
         return INVALID;
     }
-    cleanStringFormat(current->to);//trim last spaces
+    cleanStringFormat(current->comment);//trim last spaces
     if(isValidComment(current->comment) != VALID) { 
         printf("\n\t- Validation failed: Invalid comment\n");
         return INVALID;
@@ -118,7 +120,7 @@ static int isValidDate(const char *myDate) {
 
 static int isValidAmount(const char *myAmount) { //Valid values Max: 999999999.99, min: 0.00 (or) just 0
     //return invalid, if the length of the string is > 13 or == 0
-    if(myAmount == NULL || strlen(myAmount) > 13 || strlen(myAmount) == 0) {
+    if(myAmount == NULL || strlen(myAmount) > 13 || strlen(myAmount) <= 1) {
         return INVALID;
     }
     int decimalPoint = INACTIVE, sign = INACTIVE;
