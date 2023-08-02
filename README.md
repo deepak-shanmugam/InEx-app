@@ -1,7 +1,7 @@
 # InEx-app
 > Version 1:
 
-First version of CLI based Income and Expense management app created using C
+First and Last version of CLI based Income and Expense management app created using C
 
 # Supported Operating System
 > Linux, Windows
@@ -36,22 +36,17 @@ gcc -o program main.c app.c session.c record.c storage.c dataProcessing.c
 # Next major release
 > What features will be included in next major release?
 
-- user will be able to delete single records in the current session of unsaved records using 'session id'
+- The software development of this project is discontinued due to poor implementation and lack of knowledge when started. There won't be next release. Please check out my new app 'InEx-plus'.
 
 # Future work
-> What can you expect in the future?
-
-- Modification of saved records
-- Sorting of records
-- Filter reords
-- Many more (Suggestions are welcome)
+> project discontinued.
 
 # Disclaimer
 > About this project
 
-This is my first complete c project. This program is tested in terms of functionality. However, It might have some minor issues (if any) and limitations in overall functionality. However, More features will be added in the upcoming days. It will be developed as an advanced CLI based Income and Expense management app in future.
+This is my first complete c project. This program is tested in terms of functionality. It might have some minor issues (if any) and having limitations in overall functionality. Due to poor implementation and lack of knowledge when started this project, I am unable to maintain this app and so discontinued. But It will work as mentioned in the #help section (Like a school/College first year simple project created using C)
 
-Feedback and Corrections are welcome. you can also report bugs in your convenient way.
+I am just keeping this repository as an example for bad Implementation of a project in C program. Just because a program works doesn't mean that it is a good program due to several reasons. If you look into this project, you can find all those reasons. Have a nice day.
 
 > Email: deepdeepdeepak@outlook.com
 
